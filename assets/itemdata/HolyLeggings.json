@@ -1,0 +1,8 @@
+{
+  "name": "Holy Leggings",
+
+  "player-buffs": {
+    "max_health": "+200",
+    "mana": "+150"
+  }
+}

@@ -1,0 +1,12 @@
+import pygame
+
+HEAVY_ATTACK = pygame.K_v
+NORMAL_ATTACK = pygame.K_f
+
+ANTIALIASING = True
+
+ITEM_RARITY_BLEND = pygame.BLEND_RGBA_MULT
+ITEM_RARITY_BLEND_AMOUNT = 255
+ITEM_ADDITIONAL_LIGHTENING = 255
+
+XP = lambda level: (level/0.3)**3

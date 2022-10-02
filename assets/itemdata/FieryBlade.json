@@ -1,0 +1,13 @@
+{
+  "name": "FieryBlade",
+  "texture": "fiery_blade",
+
+  "player-buffs": {
+    "physical_damage": "+300",
+    "max_health": "+100"
+  },
+
+  "modifiers": {
+    "fire": "+175"
+  }
+}

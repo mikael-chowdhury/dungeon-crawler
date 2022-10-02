@@ -1,0 +1,9 @@
+{
+  "name": "Oceanic Leggings",
+
+  "player-buffs": {
+    "physical_damage": "*1.5",
+    "max_health": "+300",
+    "speed": "*1.5"
+  }
+}

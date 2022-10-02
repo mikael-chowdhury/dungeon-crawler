@@ -1,0 +1,7 @@
+{
+  "name": "Breathing Boots",
+
+  "player-buffs": {
+    "max_health": "+350"
+  }
+}

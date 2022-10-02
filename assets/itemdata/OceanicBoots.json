@@ -1,0 +1,9 @@
+{
+  "name": "Oceanic Boots",
+
+  "player-buffs": {
+    "physical_damage": "*1.25",
+    "max_health": "+250",
+    "speed": "*1.25"
+  }
+}

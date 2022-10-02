@@ -1,0 +1,13 @@
+{
+  "name": "Holy Blade",
+  "texture": "holy_blade",
+
+  "player-buffs": {
+    "physical_damage": "+400",
+    "max_health": "+50"
+  },
+
+  "modifiers": {
+    "attack_range": "+100"
+  }
+}

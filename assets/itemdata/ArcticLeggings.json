@@ -1,0 +1,12 @@
+{
+  "name": "Arctic Leggings",
+
+  "player-buffs": {
+    "physical_damage": "*1.25",
+    "max_health": "+125"
+  },
+
+  "modifiers": {
+    "ice": "+125"
+  }
+}

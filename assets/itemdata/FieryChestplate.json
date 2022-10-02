@@ -1,0 +1,12 @@
+{
+  "name": "Fiery Chestplate",
+
+  "player-buffs": {
+    "physical_damage": "*1.5",
+    "max_health": "+400"
+  },
+
+  "modifiers": {
+    "fire": "+150"
+  }
+}

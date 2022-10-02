@@ -1,0 +1,9 @@
+{
+  "name": "Oceanic Chestplate",
+
+  "player-buffs": {
+    "physical_damage": "*2",
+    "max_health": "+350",
+    "speed": "*2"
+  }
+}

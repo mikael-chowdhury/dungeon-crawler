@@ -1,0 +1,8 @@
+{
+  "name": "Holy Chestplate",
+
+  "player-buffs": {
+    "max_health": "+250",
+    "mana": "+200"
+  }
+}

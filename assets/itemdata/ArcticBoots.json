@@ -1,0 +1,12 @@
+{
+  "name": "Arctic Boots",
+
+  "player-buffs": {
+    "physical_damage": "*1.2",
+    "max_health": "+100"
+  },
+
+  "modifiers": {
+    "ice": "+100"
+  }
+}

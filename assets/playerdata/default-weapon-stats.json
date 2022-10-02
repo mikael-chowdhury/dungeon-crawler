@@ -1,0 +1,12 @@
+{
+  "attack_speed": 0.5,
+  "heavy_attack_speed": 0,
+  "attack_range": 200,
+
+  "ice": 0,
+  "fire": 0,
+  "toxin": 0,
+  "bleeding": 0,
+
+  "heavy_attack_damage_multiplier": 1.5
+}

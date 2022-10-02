@@ -1,0 +1,10 @@
+{
+  "name": "Oceanic Blade",
+  "texture": "oceanic_blade",
+
+  "player-buffs": {
+    "physical_damage": "+350",
+    "max_health": "+100",
+    "speed": "*1.5"
+  }
+}

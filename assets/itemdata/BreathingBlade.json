@@ -1,0 +1,9 @@
+{
+  "name": "Breathing Blade",
+  "texture": "breathing_blade",
+
+  "player-buffs": {
+    "physical_damage": "+250",
+    "max_health": "+250"
+  }
+}

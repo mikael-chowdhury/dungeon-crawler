@@ -1,0 +1,8 @@
+{
+  "name": "Breathing Leggings",
+
+  "player-buffs": {
+    "physical_damage": "*1.1",
+    "max_health": "+400"
+  }
+}

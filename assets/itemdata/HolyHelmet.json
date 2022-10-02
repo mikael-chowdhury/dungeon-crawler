@@ -1,0 +1,8 @@
+{
+  "name": "Holy Helmet",
+
+  "player-buffs": {
+    "max_health": "+150",
+    "mana": "+125"
+  }
+}
