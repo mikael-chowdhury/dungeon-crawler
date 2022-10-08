@@ -4,7 +4,7 @@ import pygame
 from config import ANTIALIASING
 
 class GuiItem:
-    def __init__(self, gui, x, y, w, h, center=(None, None), background_colour=(255, 255, 255), background_image=None, text="Default Text", text_font="Arial", text_colour=(0, 0, 0), font_size=24, is_sys_font=True, no_text=False) -> None:
+    def __init__(self, gui, x, y, w, h, center=(None, None), background_colour=(255, 255, 255), background_image=None, text="Default Text", text_font="Arial", text_colour=(0, 0, 0), font_size=24, is_sys_font=True, no_text=False, no_background=False) -> None:
         self.gui = gui
 
         self.x = x
@@ -23,6 +23,7 @@ class GuiItem:
         self.font_size = font_size
         self.is_sys_font = is_sys_font
         self.no_text = no_text
+        self.no_background = no_background
 
         self.uuid = uuid.uuid4()
 
@@ -61,7 +62,7 @@ class GuiItem:
             screen.blit(self.background_image, (self.x, self.y))
 
         else:
-            if self.background_colour is not None:
+            if self.background_colour is not None and not self.no_background:
                 pygame.draw.rect(screen, self.background_colour, (self.x, self.y, self.w, self.h))
 
         if self.text != "" and not self.no_text:

@@ -73,8 +73,8 @@ class Player(Entity):
                 self.cameraY += move[1]
 
     def draw_attack_range_circle(self, screen):
-        if self.inventory.equipped_item is not None and "attack_range" in self.inventory.equipped_item.__dict__.keys():
-            range = self.inventory.equipped_item.attack_range
+        if self.inventory.equipment.weapon is not None and "attack_range" in self.inventory.equipment.weapon.__dict__.keys():
+            range = self.inventory.equipment.weapon.attack_range
         else:
             range = 0
 

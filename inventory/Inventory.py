@@ -1,4 +1,4 @@
-from equipment.equipment import Equipment
+from items.equipment.equipment import Equipment
 
 
 class Inventory():

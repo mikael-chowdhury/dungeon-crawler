@@ -17,8 +17,6 @@ class ToolTip:
         w = max([x.x+x.w for x in guiitems])-x
         h = max([x.y+x.h for x in guiitems])-y
 
-        print(x, y, w, h)
-
         return x, y, w, h
 
     def mouse_hovering(self):
@@ -50,6 +48,6 @@ class ToolTip:
 
         if self.activated:
             for guiitem in self.guiitems:
-                guiitem.update(screen, events, keys, dt, dungeon)
+                guiitem.update(screen, events, keys, dt, dungeon, self)
 
         return self.activated

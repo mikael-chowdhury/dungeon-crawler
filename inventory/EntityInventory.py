@@ -1,13 +1,11 @@
 from copy import deepcopy
-from equipment.Stat import Stat
-from equipment.equipment import Equipment
+from items.equipment.equipment import Equipment
 from inventory.Inventory import Inventory
 
 class EntityEquipment:
     def __init__(self):
         self.helmet = None
         self.chestplate = None
-        self.leggings = None
         self.boots = None
         self.spell_book = None
         self.weapon = None
@@ -25,18 +23,28 @@ class EntityInventory(Inventory):
 
         self.equipment = EntityEquipment()
 
-        self.equipped_index = 0
-        self.equipped_item = self.items[self.equipped_index]
-
         self.loaded_stat_boosters = []
 
-        self.hotbar = self.items[:5]
+    def find_first_open_slot(self):
+        index = -1
+
+        for i, item in enumerate(self.items):
+            if item is None:
+                index = i
+                break
+
+        return index
+
+    def give_item(self, item)->int:
+        index = self.find_first_open_slot()
+
+        if index > -1:
+            self.set_item(index, item)
+
+        return index
 
     def set_item(self, index, item):
         self.items[index] = item
-
-        if index == self.equipped_index:
-            self.equipped_item = self.items[self.equipped_index]
 
     def applystat(self, stat, equipment, player, key, obj, default):
         stat_object = {stat: equipment.json[key][stat]}
@@ -60,7 +68,7 @@ class EntityInventory(Inventory):
     def load_stat_boosters(self, player):
         player.reset_stats()
 
-        for equipment in self.equipment.get_equipment()+[self.equipped_item]:
+        for equipment in self.equipment.get_equipment():
             if equipment is not None:
                 if "player-buffs" in equipment.json.keys():
                     for stat in equipment.json["player-buffs"].keys():
