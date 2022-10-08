@@ -1,5 +1,6 @@
 {
   "name": "Oceanic Chestplate",
+  "type": "chestplate",
 
   "player-buffs": {
     "physical_damage": "*2",

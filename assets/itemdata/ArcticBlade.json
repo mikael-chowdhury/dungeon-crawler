@@ -1,5 +1,7 @@
 {
   "name": "Arctic Blade",
+  "type": "Weapon",
+  
   "texture": "arctic_blade",
 
   "player-buffs": {

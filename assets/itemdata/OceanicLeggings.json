@@ -1,5 +1,6 @@
 {
   "name": "Oceanic Leggings",
+  "type": "leggings",
 
   "player-buffs": {
     "physical_damage": "*1.5",

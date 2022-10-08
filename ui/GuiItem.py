@@ -26,7 +26,9 @@ class GuiItem:
 
         self.uuid = uuid.uuid4()
 
-        if self.center != (None, None):
+        self.tooltip = None
+
+        if isinstance(self.center, tuple) and self.center.__len__() == 2 and self.center[0] != None and self.center[1] != None:
             rect = pygame.Rect(self.x, self.y, self.w, self.h)
             rect.center = self.center
             self.x = rect.x
@@ -43,6 +45,9 @@ class GuiItem:
 
         if gui is not None:
             gui.gui_items.append(self)
+
+    def apply_tooltip(self, tooltip):
+        self.tooltip = tooltip
 
     def set_text(self, text):
         self.text = text
@@ -65,6 +70,9 @@ class GuiItem:
             text_rect.center = background.center
 
             screen.blit(self.pre_rendered_text, text_rect)
+
+        if self.tooltip is not None:
+            self.tooltip.update(screen, events, keys, dt, dungeon)
 
     def mouse_hovering(self):
         x, y = pygame.mouse.get_pos()

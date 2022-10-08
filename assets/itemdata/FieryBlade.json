@@ -1,5 +1,7 @@
 {
   "name": "FieryBlade",
+  "type": "Weapon",
+  
   "texture": "fiery_blade",
 
   "player-buffs": {

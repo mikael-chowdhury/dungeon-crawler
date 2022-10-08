@@ -1,5 +1,6 @@
 {
   "name": "Holy Leggings",
+  "type": "leggings",
 
   "player-buffs": {
     "max_health": "+200",

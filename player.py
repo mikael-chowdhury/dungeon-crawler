@@ -174,8 +174,5 @@ class Player(Entity):
             self.required_exp = self.get_required_exp()
             self.exp = 0
             self.award_exp(prevexp-prev)
-
-        print(str(self.exp) + "  |  " + str(self.required_exp))
-
-
+            
 player = Player()

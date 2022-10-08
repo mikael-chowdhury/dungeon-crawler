@@ -1,5 +1,6 @@
 {
   "name": "Arctic Helmet",
+  "type": "helmet",
 
   "player-buffs": {
     "physical_damage": "*1.2",

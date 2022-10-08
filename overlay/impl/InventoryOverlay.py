@@ -1,5 +1,3 @@
-from copy import deepcopy
-import random
 import pygame
 from equipment.equipment import Equipment
 from overlay.Overlay import Overlay
@@ -7,6 +5,10 @@ import config
 
 from player import player
 from ui.GuiItem import GuiItem
+from ui.items.InventoryItemToolTip import InventoryItemToolTip
+from ui.items.ToolTip import ToolTip
+
+from ui.items.Rectangle import Rectangle
 
 class InventoryOverlay(Overlay):
     def __init__(self):
@@ -44,6 +46,10 @@ class InventoryOverlay(Overlay):
 
         self.attributesHeader = self.subtitlefont.render("Attributes", config.ANTIALIASING, (255, 0, 0))
         self.selectedItemAttributes = self.getSelectedItemProperties("get_modifiers")
+
+    def item_equip(self, item, *args):
+        type = item.json["type"].lower()
+        setattr(player.inventory.equipment, type, item)
 
     def getSelectedItemTitleText(self):
         return self.titlefont.render(player.inventory.items[self.selectedItemIndex].json["name"] if isinstance(player.inventory.items[self.selectedItemIndex], Equipment) else "", config.ANTIALIASING, self.selectedItem.rarity.colour if isinstance(self.selectedItem, Equipment) else (255, 0, 0))
@@ -98,19 +104,22 @@ class InventoryOverlay(Overlay):
 
             rect = pygame.Rect(x, y, self.tile_size, self.tile_size)
 
-            if rect.collidepoint(mousex, mousey):
-                self.hoveringItem = item
-                self.hoveringItemIndex = item_number
+            tooltips = [not (x.tooltip.mouse_hovering_tooltip() and x.tooltip.activated) for x in self.gui_items if isinstance(x, GuiItem) and isinstance(x.tooltip, ToolTip)]
 
-            if rect.collidepoint(*self.lastclickpos):
-                self.lastclickpos = (-1000, -1000)
-                self.selectedItem:Equipment = item
-                self.selectedItemIndex = item_number
-                self.selectedItemTitleText = self.getSelectedItemTitleText()
-                self.selectedItemImage = self.getSelectedItemImage()
-                self.selectedItemRarityText = self.getSelectedItemRarityText()
-                self.selectedItemProperties = self.getSelectedItemProperties("get_player_buffs")
-                self.selectedItemAttributes = self.getSelectedItemProperties("get_modifiers")
+            if(all(tooltips)):
+                if rect.collidepoint(mousex, mousey):
+                    self.hoveringItem = item
+                    self.hoveringItemIndex = item_number
+
+                if rect.collidepoint(*self.lastclickpos):
+                    self.lastclickpos = (-1000, -1000)
+                    self.selectedItem:Equipment = item
+                    self.selectedItemIndex = item_number
+                    self.selectedItemTitleText = self.getSelectedItemTitleText()
+                    self.selectedItemImage = self.getSelectedItemImage()
+                    self.selectedItemRarityText = self.getSelectedItemRarityText()
+                    self.selectedItemProperties = self.getSelectedItemProperties("get_player_buffs")
+                    self.selectedItemAttributes = self.getSelectedItemProperties("get_modifiers")
 
             if self.selectedItemIndex == item_number:
                 pygame.draw.rect(screen, (255, 255, 255), rect, 1)
@@ -127,7 +136,50 @@ class InventoryOverlay(Overlay):
                         # temp = item.image.copy()
                         # temp.fill((*item.rarity.colour, config.ITEM_RARITY_BLEND_AMOUNT), special_flags=config.ITEM_RARITY_BLEND)
                         # temp.fill((255, 255, 255, config.ITEM_ADDITIONAL_LIGHTENING), special_flags=pygame.BLEND_RGBA_MULT)
-                        self.gui_items.append(GuiItem(self, x, y, self.tile_size, self.tile_size, background_image=item.image, text=""))
+                        guiitem = GuiItem(None, x, y, self.tile_size, self.tile_size, background_image=item.image, text="")
+                        guiitem.apply_tooltip(ToolTip(guiitem, [InventoryItemToolTip(None, x+self.tile_size, y+self.tile_size, item, lambda *args: self.item_equip(*args))]))
+                        self.gui_items.append(guiitem)
+
+        equipmentrect = pygame.Rect(0, 0, 250, 325)
+        equipmentrect.left = 25
+        equipmentrect.centery = 175
+        pygame.draw.rect(screen, (255, 0, 0), equipmentrect, 1)
+
+
+        helmetrect = pygame.Rect(0, 0, 50, 50)
+        helmetrect.centerx = equipmentrect.centerx
+        helmetrect.centery = equipmentrect.top + (equipmentrect.centery-equipmentrect.top)/2
+        pygame.draw.rect(screen, (255, 0, 0), helmetrect, 1)
+        if isinstance(player.inventory.equipment.helmet, Equipment):
+            print(player.inventory.equipment.helmet.json)
+            if "image" in player.inventory.equipment.helmet.__dict__.keys():
+                img = player.inventory.equipment.helmet.image
+                screen.blit(img, img.get_rect(center=helmetrect.center))
+
+        chestplaterect = pygame.Rect(0, 0, 50, 50)
+        chestplaterect.centerx = equipmentrect.centerx
+        chestplaterect.top = helmetrect.bottom + 5
+        pygame.draw.rect(screen, (255, 0, 0), chestplaterect, 1)
+
+        leggingsrect = pygame.Rect(0, 0, 50, 50)
+        leggingsrect.centerx = equipmentrect.centerx
+        leggingsrect.top = chestplaterect.bottom + 5
+        pygame.draw.rect(screen, (255, 0, 0), leggingsrect, 1)
+
+        bootsrect = pygame.Rect(0, 0, 50, 50)
+        bootsrect.centerx = equipmentrect.centerx
+        bootsrect.top = leggingsrect.bottom + 5
+        pygame.draw.rect(screen, (255, 0, 0), bootsrect, 1)
+
+        weaponrect = pygame.Rect(0, 0, 50, 50)
+        weaponrect.right = chestplaterect.left - 5
+        weaponrect.centery = chestplaterect.top + chestplaterect.height + 2.5
+        pygame.draw.rect(screen, (255, 0, 0), weaponrect, 1)
+
+        spellbookrect = pygame.Rect(0, 0, 50, 50)
+        spellbookrect.left = chestplaterect.right + 5
+        spellbookrect.centery = chestplaterect.top + chestplaterect.height + 2.5
+        pygame.draw.rect(screen, (255, 0, 0), spellbookrect, 1)
 
         statrect = pygame.Rect(0, 0, 250, 325)
         statrect.centerx = 400

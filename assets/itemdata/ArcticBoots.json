@@ -1,5 +1,6 @@
 {
   "name": "Arctic Boots",
+  "type": "boots",
 
   "player-buffs": {
     "physical_damage": "*1.2",

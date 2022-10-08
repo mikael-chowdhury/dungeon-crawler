@@ -1,5 +1,7 @@
 {
   "name": "Oceanic Blade",
+  "type": "Weapon",
+  
   "texture": "oceanic_blade",
 
   "player-buffs": {

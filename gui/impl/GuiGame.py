@@ -15,6 +15,8 @@ class GuiGame(Gui):
         player.inventory.set_item(3, ItemInit.OCEANIC_BLADE.instance())
         player.inventory.set_item(4, ItemInit.BREATHING_BLADE.instance())
 
+        player.inventory.equipment.helmet = ItemInit.BREATHING_HELMET.instance()
+
         player.inventory.equipment.chestplate = ItemInit.HOLY_CHESTPLATE.instance()
         player.inventory.load_stat_boosters(player)
 

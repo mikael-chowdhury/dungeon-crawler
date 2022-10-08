@@ -10,6 +10,7 @@ class EntityEquipment:
         self.leggings = None
         self.boots = None
         self.spell_book = None
+        self.weapon = None
 
     def get_equipment(self):
         return [getattr(self, x) for x in dir(self) if isinstance(getattr(self, x), Equipment)]

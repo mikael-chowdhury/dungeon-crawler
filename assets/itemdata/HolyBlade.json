@@ -1,5 +1,7 @@
 {
   "name": "Holy Blade",
+  "type": "Weapon",
+  
   "texture": "holy_blade",
 
   "player-buffs": {

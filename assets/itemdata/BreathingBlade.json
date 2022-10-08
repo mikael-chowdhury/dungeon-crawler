@@ -1,5 +1,7 @@
 {
   "name": "Breathing Blade",
+  "type": "Weapon",
+  
   "texture": "breathing_blade",
 
   "player-buffs": {
