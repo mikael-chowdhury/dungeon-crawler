@@ -1,8 +1,0 @@
-{
-  "name": "Breathing Helmet",
-  "type": "helmet",
-
-  "player-buffs": {
-    "max_health": "+350"
-  }
-}

@@ -1,0 +1,11 @@
+{
+    "name": "Copper Helmet",
+    "type": "helmet",
+    
+    "texture": "copper_helmet",
+  
+    "player-buffs": {
+      "max_health": "+15"
+    }
+  }
+  

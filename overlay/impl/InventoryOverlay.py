@@ -30,9 +30,10 @@ class InventoryOverlay(Overlay):
 
         self.hoveringItem = player.inventory.items[0]
 
-        self.selectedItem = player.inventory.items[0]
-
         self.lastclickpos = 0, 0
+    
+        self.selectedItem = player.inventory.items[0]
+        self.selectedSlotPos = None
 
         self.titlefont = pygame.font.SysFont("Arial", 32)
         self.subtitlefont = pygame.font.SysFont("Arial", 24)
@@ -138,6 +139,7 @@ class InventoryOverlay(Overlay):
 
                     if rect.collidepoint(*self.lastclickpos):
                         self.lastclickpos = (-1000, -1000)
+                        self.selectedSlotPos = (rect.x, rect.y)
                         self.selectedItem:Item = slot.item
                         self.selectedItemTitleText = self.getSelectedItemTitleText()
                         self.selectedItemImage = self.getSelectedItemImage()
@@ -175,7 +177,6 @@ class InventoryOverlay(Overlay):
         equipmentrect = pygame.Rect(0, 0, 250, 325)
         equipmentrect.left = 25
         equipmentrect.centery = 175
-        pygame.draw.rect(screen, (255, 0, 0), equipmentrect, 1)
 
         if self.helmetslot is not None:
             self.helmetslot.item = player.inventory.equipment.helmet
@@ -251,30 +252,30 @@ class InventoryOverlay(Overlay):
         screen.blit(self.selectedItemTitleText, titlerect)
 
         if isinstance(self.selectedItemImage, pygame.Surface):
-            imagerect = self.selectedItemImage.get_rect(centerx=statrect.centerx, top=titlerect.bottom+10)
+            imagerect = self.selectedItemImage.get_rect(centerx=statrect.centerx, top=titlerect.bottom)
             screen.blit(self.selectedItemImage, imagerect)
 
             if isinstance(self.selectedItemRarityText, pygame.Surface):
                 raritytextrect = self.selectedItemRarityText.get_rect(centerx=statrect.centerx, centery=imagerect.bottom+15)
                 screen.blit(self.selectedItemRarityText, raritytextrect)
 
-        propertiesheaderrect = self.propertiesHeader.get_rect(left=statrect.right+25, top=titlerect.top)
+        propertiesheaderrect = self.propertiesHeader.get_rect(left=statrect.right+50, top=titlerect.top)
         if self.selectedItemProperties.__len__() > 0:
             screen.blit(self.propertiesHeader, propertiesheaderrect)
 
-        propertiesrect = pygame.Rect(statrect.right + 25, titlerect.bottom, 100, propertiesheaderrect.height)
+        propertiesrect = pygame.Rect(statrect.right + 50, titlerect.bottom, 100, propertiesheaderrect.height)
 
         for index, property in enumerate(self.selectedItemProperties):
             if isinstance(property, pygame.Surface):
-                statsrect = property.get_rect(left=statrect.right + 25, top=propertiesheaderrect.bottom+15+(index*25))
+                statsrect = property.get_rect(left=statrect.right + 50, top=propertiesheaderrect.bottom+15+(index*25))
                 propertiesrect.height += statsrect.height
                 screen.blit(property, statsrect)
 
-        attributesheaderrect = self.attributesHeader.get_rect(left=statrect.right+25, top=propertiesrect.bottom+35)
+        attributesheaderrect = self.attributesHeader.get_rect(left=statrect.right+50, top=propertiesrect.bottom+35)
         if self.selectedItemAttributes.__len__() > 0:
             screen.blit(self.attributesHeader, attributesheaderrect)
 
-        attributesrect = pygame.Rect(statrect.right + 25, propertiesrect.bottom+30, 100, 0)
+        attributesrect = pygame.Rect(statrect.right + 50, propertiesrect.bottom+30, 100, 0)
 
         for index, attribute in enumerate(self.selectedItemAttributes):
             if isinstance(attribute, pygame.Surface):
@@ -282,9 +283,10 @@ class InventoryOverlay(Overlay):
                 attributesrect.height += statsrect.height
                 screen.blit(attribute, statsrect)
 
-        pygame.draw.rect(screen, (255, 0, 0), statrect, 1)
-
         super().update(screen, events, keys, dt, dungeon)
+
+        if self.selectedSlotPos is not None:
+            pygame.draw.rect(screen, (255, 255, 255), (self.selectedSlotPos[0], self.selectedSlotPos[1], 50, 50), 1)
 
         for tooltip in [x.tooltip for x in self.gui_items if isinstance(x, Slot)]:
             if tooltip is not None:

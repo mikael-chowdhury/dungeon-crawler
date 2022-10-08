@@ -9,15 +9,10 @@ from player import player
 class GuiGame(Gui):
     def __init__(self):
         super().__init__()
-        player.inventory.set_item(0, ItemInit.HOLY_BLADE.instance())
-        player.inventory.set_item(1, ItemInit.FIERY_BLADE.instance())
-        player.inventory.set_item(2, ItemInit.ARCTIC_BLADE.instance())
-        player.inventory.set_item(3, ItemInit.OCEANIC_BLADE.instance())
-        player.inventory.set_item(4, ItemInit.BREATHING_BLADE.instance())
 
-        player.inventory.equipment.helmet = ItemInit.BREATHING_HELMET.instance()
-        player.inventory.equipment.chestplate = ItemInit.HOLY_CHESTPLATE.instance()
-        player.inventory.equipment.boots = ItemInit.FIERY_BOOTS
+        player.inventory.equipment.helmet = ItemInit.COPPER_HELMET
+        player.inventory.equipment.chestplate = ItemInit.COPPER_CHESTPLATE
+        player.inventory.equipment.boots = ItemInit.COPPER_BOOTS
 
         player.inventory.load_stat_boosters(player)
 

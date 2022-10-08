@@ -9,6 +9,8 @@ from ui.items.StatusBar import StatusBar
 from util.ResourceLocation import ResourceLocation
 from math import atan2, pi, degrees
 
+from abilities.passives.Passive import Passive
+
 import config
 
 class Player(Entity):
@@ -23,6 +25,8 @@ class Player(Entity):
         self.exp = 0
         self.level = 1
         self.required_exp = self.get_required_exp()
+        
+        self.passives:list[Passive] = []
 
         rect = pygame.Rect(self.x, self.y, self.width, self.height)
         rect.center = (400, 400)
@@ -126,6 +130,9 @@ class Player(Entity):
         return rot_image
 
     def update(self, screen, events, keys, dt, dungeon):
+        for passive in [x for x in self.passives if not x.applied]:
+            passive.apply(passive.level)
+
         angle = self.get_angle((self.rect.center), pygame.mouse.get_pos())
         self.image = self.rot_center(self.original_image, degrees(angle)+self.rotation_padding).convert_alpha()
         

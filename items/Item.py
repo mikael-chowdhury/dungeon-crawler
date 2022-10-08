@@ -26,7 +26,7 @@ class Item:
         
         if "texture" in dict(json).keys():
             self.image = pygame.transform.smoothscale(pygame.image.load(os.path.join("assets", "models", json["texture"] + ".png")), (50, 50))
-            self.previewimage = pygame.transform.smoothscale(pygame.image.load(os.path.join("assets", "models", json["texture"] + ".png")), (200, 200))
+            self.previewimage = pygame.transform.scale(pygame.image.load(os.path.join("assets", "models", json["texture"] + ".png")), (224, 224))
 
     def set_base(self):
         for key in self.basejson.keys():

@@ -1,9 +1,0 @@
-{
-  "name": "Holy Boots",
-  "type": "boots",
-
-  "player-buffs": {
-    "max_health": "+150",
-    "mana": "+125"
-  }
-}

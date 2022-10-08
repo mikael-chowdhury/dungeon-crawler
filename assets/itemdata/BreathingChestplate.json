@@ -1,9 +1,0 @@
-{
-  "name": "Breathing Chestplate",
-  "type": "chestplate",
-
-  "player-buffs": {
-    "physical_damage": "*1.2",
-    "max_health": "+500"
-  }
-}
