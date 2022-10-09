@@ -60,6 +60,7 @@ class PassiveOverlay(Overlay):
     def passive_unequip(self, passive:Passive, index, *args):
         for i, slot in enumerate(self.inventoryslots):
             if slot.passive is None:
+                passive.applied = False
                 slot.passive = passive
                 player.passiveInventory[i] = passive
                 break
@@ -132,6 +133,7 @@ class PassiveOverlay(Overlay):
                     if rect.collidepoint(self.lastclickpos[0], self.lastclickpos[1]):
                         self.lastclickpos = (-1000, -1000)
                         new = [*[selection]][0]
+                        self.awaitingselection_passive.apply(1)
                         new.passive = self.awaitingselection_passive
                         setattr(self, f"passiveslot{i+1}", new)
                         player.passives[i] = self.awaitingselection_passive
@@ -208,15 +210,19 @@ class PassiveOverlay(Overlay):
             else:
                 self.passiveslot5.tooltip = None
 
-        propertiesRect = pygame.Rect(0, 0, 350, 300)
+        propertiesRect = pygame.Rect(0, 0, 300, 300)
         propertiesRect.right = screen.get_rect().right - 15
         propertiesRect.top = 15
 
         if self.selectedItemTitleText is not None:
-            rect = self.selectedItemTitleText.get_rect(centerx=propertiesRect.centerx, y=propertiesRect.y+15)
+            rect = self.selectedItemTitleText.get_rect(left=propertiesRect.x, y=propertiesRect.y+15)
             screen.blit(self.selectedItemTitleText, rect)
 
-        pygame.draw.rect(screen, (255, 0, 0), propertiesRect, 1)
+            for index, property in enumerate(self.selectedItemProperties):
+                if isinstance(property, pygame.Surface):
+                    statsrect = property.get_rect(left=propertiesRect.x, top=rect.bottom+15+(index*25))
+                    propertiesRect.height += statsrect.height
+                    screen.blit(property, statsrect)
 
         rect = pygame.Rect(0, 0, 370, 100)
         rect.centery = 200
@@ -234,8 +240,6 @@ class PassiveOverlay(Overlay):
                 setattr(self, f"passiveslot{i+1}", slot)
 
             xadd += 64+10
-
-        pygame.draw.rect(screen, (255, 0, 0), rect, 1)
 
         super().update(screen, events, keys, dt, dungeon)
 

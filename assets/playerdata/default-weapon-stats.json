@@ -1,6 +1,6 @@
 {
   "attack_speed": 0.5,
-  "heavy_attack_speed": 0,
+  "heavy_attack_speed": 0.75,
   "attack_range": 200,
 
   "ice": 0,

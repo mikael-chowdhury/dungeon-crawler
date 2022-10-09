@@ -8,4 +8,7 @@ class LifeBonus(Passive):
         super().__init__("Life Bonus", "lifebonus", Rarities.RARE, ["+10% HP"])
 
     def apply(self, multiplier):
-        player.max_health = int(player.max_health * 1.1)
+        new = int(player.max_health * 1.1)
+        multiplier = new / player.max_health
+        player.max_health = new
+        player.health = int(player.health * multiplier)

@@ -132,8 +132,9 @@ class Player(Entity):
         return rot_image
 
     def update(self, screen, events, keys, dt, dungeon):
-        for passive in [x.passive for x in self.passives if isinstance(x, SlotPassive) and not x.passive.applied]:
-            passive.apply(passive.level)
+        for passive in [x for x in self.passives if isinstance(x, Passive)]:
+            if not passive.applied:
+                passive.apply(passive.level)
 
         angle = self.get_angle((self.rect.center), pygame.mouse.get_pos())
         self.image = self.rot_center(self.original_image, degrees(angle)+self.rotation_padding).convert_alpha()

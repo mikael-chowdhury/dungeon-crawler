@@ -68,7 +68,6 @@ class InventoryOverlay(Overlay):
         self.inventoryslots[index].tooltip = None
 
         if isinstance(before, Equipment):
-            print(before.json["name"])
             i = player.inventory.give_item(before)
             self.inventoryslots[i].item = before
 

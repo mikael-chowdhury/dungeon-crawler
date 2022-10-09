@@ -25,7 +25,7 @@ class Item:
         self.rand_multiplier = self.random_decimal(0.95, 1.15)
         
         if "texture" in dict(json).keys():
-            self.image = pygame.transform.smoothscale(pygame.image.load(os.path.join("assets", "textures", "items", json["texture"] + ".png")), (50, 50))
+            self.image = pygame.transform.scale(pygame.image.load(os.path.join("assets", "textures", "items", json["texture"] + ".png")), (50, 50))
             self.previewimage = pygame.transform.scale(pygame.image.load(os.path.join("assets", "textures", "items", json["texture"] + ".png")), (224, 224))
 
     def set_base(self):

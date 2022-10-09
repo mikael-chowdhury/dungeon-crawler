@@ -8,5 +8,5 @@ class Berserker(Passive):
         super().__init__("Berserker", "berserker", Rarities.EPIC, ["+20% attack damage", "+20% attack speed"])
 
     def apply(self, multiplier):
-        player.physical_damage = int(player.physical_damage * 1.2)
-        player.attackspeedmultiplier = int(player.attackspeedmultiplier * 1.2)
+        player.physical_damage = player.physical_damage * 1.2
+        player.attackspeedmultiplier = player.attackspeedmultiplier * 1.2

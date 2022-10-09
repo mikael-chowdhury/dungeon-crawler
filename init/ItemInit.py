@@ -5,3 +5,4 @@ class ItemInit:
     COPPER_HELMET = Armour.fromRegistryName("CopperHelmet")
     COPPER_CHESTPLATE = Armour.fromRegistryName("CopperChestplate")
     COPPER_BOOTS = Armour.fromRegistryName("CopperBoots")
+    COPPER_SWORD = Weapon.fromRegistryName("CopperSword")

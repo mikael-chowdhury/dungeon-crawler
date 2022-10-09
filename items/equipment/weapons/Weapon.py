@@ -89,7 +89,9 @@ class Weapon(Equipment):
             if event.type == pygame.KEYDOWN:
                 if event.key == NORMAL_ATTACK:
                     if self.can_attack:
-                        pygame.time.set_timer(Weapon.ATTACK_COOLDOWN, int(self.attack_speed*1000/player.attackspeedmultiplier))
+                        cooldown = int(self.attack_speed*1000)
+                        print(player.attackspeedmultiplier)
+                        pygame.time.set_timer(Weapon.ATTACK_COOLDOWN, cooldown)
                         self.on_normal_attack(screen, events, keys, dt, dungeon, cameraX, cameraY)
                         self.can_attack = False
                 
