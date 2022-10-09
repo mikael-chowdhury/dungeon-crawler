@@ -28,6 +28,7 @@ class Player(Entity):
         self.required_exp = self.get_required_exp()
         
         self.passives:list[Passive|None] = [None, None, None, None, None]
+        self.passiveInventory:list[Passive|None] = [None for _ in range(45)]
 
         rect = pygame.Rect(self.x, self.y, self.width, self.height)
         rect.center = (400, 400)

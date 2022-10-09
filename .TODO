@@ -8,6 +8,8 @@ TODO:
 - [x] create overlay class that implements a traditional stack
 - [x] create inventory overlay
 - [x] create way to equip and unequip equipment
+- [x] create passive abilities
+- [ ] create way to equip and unequip passive abilities
 - [ ] add different locations with different functionalities for the player to progress stat-wise (item forger, item upgrader, villages with traders)
 - [ ] create random level generation
 - [ ] add animation to the character and monsters

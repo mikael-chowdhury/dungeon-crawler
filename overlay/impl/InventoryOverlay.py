@@ -87,10 +87,10 @@ class InventoryOverlay(Overlay):
                 screen.blit(img, img.get_rect(center=rect.center))
 
     def getSelectedItemTitleText(self):
-        return self.titlefont.render(self.selectedItem.json["name"] if isinstance(self.selectedItem, Equipment) else "", config.ANTIALIASING, self.selectedItem.rarity.colour if isinstance(self.selectedItem, Equipment) else (255, 0, 0))
+        return self.titlefont.render(self.selectedItem.json["name"] if isinstance(self.selectedItem, Item) else "", config.ANTIALIASING, self.selectedItem.rarity.colour if isinstance(self.selectedItem, Item) else (255, 0, 0))
 
     def getSelectedItemImage(self) -> pygame.Surface|None:
-        image = self.selectedItem.previewimage if isinstance(self.selectedItem, Equipment) and "previewimage" in self.selectedItem.__dict__.keys() else None
+        image = self.selectedItem.previewimage if isinstance(self.selectedItem, Item) and "previewimage" in self.selectedItem.__dict__.keys() else None
 
         # if isinstance(image, pygame.Surface):
         #     temp = image.copy()
@@ -101,12 +101,12 @@ class InventoryOverlay(Overlay):
         return image
 
     def getSelectedItemRarityText(self) -> pygame.Surface|None:
-        return self.subtitlefont.render(self.selectedItem.rarity.name, config.ANTIALIASING, self.selectedItem.rarity.colour) if isinstance(self.selectedItem, Equipment) else None
+        return self.subtitlefont.render(self.selectedItem.rarity.name, config.ANTIALIASING, self.selectedItem.rarity.colour) if isinstance(self.selectedItem, Item) else None
 
     def getSelectedItemProperties(self, call:str) -> list[pygame.Surface]:
         propertystrings = []
 
-        if isinstance(self.selectedItem, Equipment):
+        if isinstance(self.selectedItem, Item):
             pb = getattr(self.selectedItem, call)()
 
             propertystrings = [str(x).replace("_", " ") + " " + str(pb[x]).replace("*", "x") for i, x in enumerate(pb.keys())]
@@ -140,7 +140,7 @@ class InventoryOverlay(Overlay):
                     if rect.collidepoint(*self.lastclickpos):
                         self.lastclickpos = (-1000, -1000)
                         self.selectedSlotPos = (rect.x, rect.y)
-                        self.selectedItem:Item = slot.item
+                        self.selectedItem = slot.item
                         self.selectedItemTitleText = self.getSelectedItemTitleText()
                         self.selectedItemImage = self.getSelectedItemImage()
                         self.selectedItemRarityText = self.getSelectedItemRarityText()

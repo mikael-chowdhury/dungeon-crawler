@@ -1,5 +1,6 @@
 import pygame
 from abilities.passives.Berserker import Berserker
+from abilities.passives.LifeBonus import LifeBonus
 from gui.Gui import Gui
 from Manager import Manager
 from init.ItemInit import ItemInit
@@ -17,11 +18,10 @@ class GuiGame(Gui):
         player.inventory.equipment.boots = ItemInit.COPPER_BOOTS
 
         player.passives[0] = Berserker()
-        player.passives[1] = Berserker()
-        player.passives[2] = Berserker()
-        player.passives[3] = Berserker()
-        player.passives[4] = Berserker()
+        player.passives[1] = LifeBonus()
 
+        player.passiveInventory[0] = Berserker()
+        player.passiveInventory[1] = LifeBonus()
 
         player.inventory.load_stat_boosters(player)
 
