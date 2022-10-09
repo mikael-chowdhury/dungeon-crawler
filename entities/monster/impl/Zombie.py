@@ -5,7 +5,7 @@ from util.ResourceLocation import ResourceLocation
 
 class Zombie(Monster):
     def __init__(self, x, y):
-        super().__init__("Zombie", x, y, ResourceLocation("assets/models/Zombie.png"))
+        super().__init__("Zombie", x, y, ResourceLocation("assets/textures/entities/Zombie.png"))
 
         self.speed = 0.05
 

@@ -3,7 +3,7 @@ from util.ResourceLocation import ResourceLocation
 
 class Wizard(Monster):
     def __init__(self, x, y):
-        super().__init__("Wizard", x, y, image_path=ResourceLocation("assets/models/Wizard.png"))
+        super().__init__("Wizard", x, y, image_path=ResourceLocation("assets/textures/entities/Wizard.png"))
 
         self.speed = 0.01
 

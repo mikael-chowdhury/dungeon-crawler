@@ -89,13 +89,13 @@ class Weapon(Equipment):
             if event.type == pygame.KEYDOWN:
                 if event.key == NORMAL_ATTACK:
                     if self.can_attack:
-                        pygame.time.set_timer(Weapon.ATTACK_COOLDOWN, int(self.attack_speed*1000))
+                        pygame.time.set_timer(Weapon.ATTACK_COOLDOWN, int(self.attack_speed*1000/player.attackspeedmultiplier))
                         self.on_normal_attack(screen, events, keys, dt, dungeon, cameraX, cameraY)
                         self.can_attack = False
                 
                 if event.key == HEAVY_ATTACK:
                     if self.can_attack:
-                        pygame.time.set_timer(Weapon.ATTACK_COOLDOWN, int(self.heavy_attack_speed*1000))
+                        pygame.time.set_timer(Weapon.ATTACK_COOLDOWN, int(self.heavy_attack_speed*1000/player.attackspeedmultiplier))
                         self.on_heavy_attack(screen, events, keys, dt, dungeon, cameraX, cameraY)
                         self.can_attack = False
         

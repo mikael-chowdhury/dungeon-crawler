@@ -5,6 +5,7 @@ import pygame
 from config import ANTIALIASING
 from entities.Entity import Entity
 from inventory.PlayerInventory import PlayerInventory
+from ui.items.SlotPassive import SlotPassive
 from ui.items.StatusBar import StatusBar
 from util.ResourceLocation import ResourceLocation
 from math import atan2, pi, degrees
@@ -26,13 +27,13 @@ class Player(Entity):
         self.level = 1
         self.required_exp = self.get_required_exp()
         
-        self.passives:list[Passive] = []
+        self.passives:list[Passive|None] = [None, None, None, None, None]
 
         rect = pygame.Rect(self.x, self.y, self.width, self.height)
         rect.center = (400, 400)
         self.set_rect(rect)
 
-        self.original_image = pygame.transform.smoothscale(pygame.image.load(ResourceLocation("assets/models/male-character.png")), (self.width, self.height))
+        self.original_image = pygame.transform.smoothscale(pygame.image.load(ResourceLocation("assets/textures/entities/male-character.png")), (self.width, self.height))
         self.image = self.original_image
         
         self.inventory = PlayerInventory()
@@ -130,7 +131,7 @@ class Player(Entity):
         return rot_image
 
     def update(self, screen, events, keys, dt, dungeon):
-        for passive in [x for x in self.passives if not x.applied]:
+        for passive in [x.passive for x in self.passives if isinstance(x, SlotPassive) and not x.passive.applied]:
             passive.apply(passive.level)
 
         angle = self.get_angle((self.rect.center), pygame.mouse.get_pos())
@@ -156,6 +157,14 @@ class Player(Entity):
         self.draw_status_bars(screen, events, keys, dt, dungeon)
         self.draw_player_level(screen)
         self.draw_time_ending_text(screen)
+
+        srect = screen.get_rect()
+        y = 5
+        for passive in self.passives:
+            if passive is not None:
+                rect = passive.image.get_rect(right=srect.right - 5)
+                screen.blit(passive.image, (rect.x, y))
+                y += rect.height + 5
 
         self.first_load = False
 

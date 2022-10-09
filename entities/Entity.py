@@ -15,6 +15,8 @@ class Entity():
         self.critical_chance = 15
         self.critical_multiplier = 2
 
+        self.attackspeedmultiplier = 1
+
         self.width = 100
         self.height = 100
 

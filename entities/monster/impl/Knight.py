@@ -4,7 +4,7 @@ from util.ResourceLocation import ResourceLocation
 
 class Knight(Monster):
     def __init__(self, x, y):
-        super().__init__("Knight", x, y, ResourceLocation("assets/models/knight.png"))
+        super().__init__("Knight", x, y, ResourceLocation("assets/textures/entities/knight.png"))
 
         self.speed = 0.1
 

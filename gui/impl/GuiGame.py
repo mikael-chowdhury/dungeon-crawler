@@ -1,8 +1,10 @@
 import pygame
+from abilities.passives.Berserker import Berserker
 from gui.Gui import Gui
 from Manager import Manager
 from init.ItemInit import ItemInit
 from overlay.impl.InventoryOverlay import InventoryOverlay
+from overlay.impl.PassiveOverlay import PassiveOverlay
 
 from player import player
 
@@ -13,6 +15,13 @@ class GuiGame(Gui):
         player.inventory.equipment.helmet = ItemInit.COPPER_HELMET
         player.inventory.equipment.chestplate = ItemInit.COPPER_CHESTPLATE
         player.inventory.equipment.boots = ItemInit.COPPER_BOOTS
+
+        player.passives[0] = Berserker()
+        player.passives[1] = Berserker()
+        player.passives[2] = Berserker()
+        player.passives[3] = Berserker()
+        player.passives[4] = Berserker()
+
 
         player.inventory.load_stat_boosters(player)
 
@@ -36,7 +45,15 @@ class GuiGame(Gui):
                     if self.overlay_manager.on_top_of_stack(InventoryOverlay):
                         self.overlay_manager.pop_stack()
                     else:
+                        self.overlay_manager.clear_stack()
                         self.overlay_manager.add_to_stack(InventoryOverlay())
+
+                if event.key == pygame.K_u:
+                    if self.overlay_manager.on_top_of_stack(PassiveOverlay):
+                        self.overlay_manager.pop_stack()
+                    else:
+                        self.overlay_manager.clear_stack()
+                        self.overlay_manager.add_to_stack(PassiveOverlay())
 
         screen.fill((0, 0, 0))
 
