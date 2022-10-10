@@ -15,6 +15,20 @@ class Wizard(Monster):
 
         self.rotation_padding = 90
 
+        self.tick = 0
+
         self.update_image()
         self.update_rect()
         self.update_pathfinder()
+
+    def fire_fireball(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
+        
+
+    def update(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
+        self.tick += 1
+
+        if self.tick >= 5000:
+            self.tick = 0
+
+
+        super().update(screen, events, keys, dt, dungeon, cameraX, cameraY)

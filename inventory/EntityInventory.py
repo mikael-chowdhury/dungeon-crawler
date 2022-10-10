@@ -53,17 +53,17 @@ class EntityInventory(Inventory):
 
         setattr(obj, stat, eval(str(default[stat]) + stat_object[stat]+f"*{equipment.rarity.multiplier}*{equipment.rand_multiplier}"))
 
-        if stat.startswith("max_"):
-            _stat = stat.replace("max_", "")
+        # if stat.startswith("max_"):
+        #     _stat = stat.replace("max_", "")
 
-            after = getattr(player, stat)
+        #     after = getattr(player, stat)
 
-            multiplier = after/before
+        #     multiplier = after/before
 
-            if not _stat in equipment.__dict__.keys():
-                setattr(player, _stat, getattr(player, _stat)*multiplier)
-            else:
-                setattr(equipment, _stat, getattr(equipment, _stat)*multiplier)
+        #     if not _stat in equipment.__dict__.keys():
+        #         setattr(player, _stat, getattr(player, _stat)*multiplier)
+        #     else:
+        #         setattr(equipment, _stat, getattr(equipment, _stat)*multiplier)
 
     def load_stat_boosters(self, player):
         player.reset_stats()

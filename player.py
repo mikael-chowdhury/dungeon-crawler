@@ -5,12 +5,9 @@ import pygame
 from config import ANTIALIASING
 from entities.Entity import Entity
 from inventory.PlayerInventory import PlayerInventory
-from ui.items.SlotPassive import SlotPassive
 from ui.items.StatusBar import StatusBar
 from util.ResourceLocation import ResourceLocation
 from math import atan2, pi, degrees
-
-from abilities.passives.Passive import Passive
 
 import config
 
@@ -27,8 +24,8 @@ class Player(Entity):
         self.level = 1
         self.required_exp = self.get_required_exp()
         
-        self.passives:list[Passive|None] = [None, None, None, None, None]
-        self.passiveInventory:list[Passive|None] = [None for _ in range(45)]
+        self.passives:list = [None, None, None, None, None]
+        self.passiveInventory:list = [None for _ in range(45)]
 
         rect = pygame.Rect(self.x, self.y, self.width, self.height)
         rect.center = (400, 400)
@@ -52,6 +49,8 @@ class Player(Entity):
         self.time_ending = False
 
         self.exp_star = None
+
+        self.lifesteal = 0
 
     def movement(self, keys, dt, dungeon):
         up = keys[pygame.K_w] or keys[pygame.K_UP]
@@ -132,10 +131,6 @@ class Player(Entity):
         return rot_image
 
     def update(self, screen, events, keys, dt, dungeon):
-        for passive in [x for x in self.passives if isinstance(x, Passive)]:
-            if not passive.applied:
-                passive.apply(passive.level)
-
         angle = self.get_angle((self.rect.center), pygame.mouse.get_pos())
         self.image = self.rot_center(self.original_image, degrees(angle)+self.rotation_padding).convert_alpha()
         
@@ -144,7 +139,7 @@ class Player(Entity):
 
             self.health_bar = StatusBar(None, 22, 728, 130, 20, background_image=pygame.image.load(ResourceLocation("assets/ui/health_bar.png")).convert_alpha(), status=self.health, total=self.max_health, line_start=25, line_end=95, bar_colour=(255, 0, 0))
             self.xp_bar = StatusBar(None, 25, 750, 126, 26, background_image=pygame.image.load(ResourceLocation("assets/ui/xp_bar.png")).convert_alpha(), status=self.exp, total=self.required_exp, line_start=25, line_end=95, bar_colour=(0, 255, 255))
-        
+
         self.health_bar.status = self.health
         self.health_bar.total = self.max_health
 
@@ -153,6 +148,10 @@ class Player(Entity):
 
         self.draw_attack_range_circle(screen)
         self.inventory.load_stat_boosters(self)
+
+        for passive in [x for x in self.passives if x is not None]:
+            passive.apply(passive.level, self)
+
         self.position_facing = pygame.mouse.get_pos()
         self.movement(keys, dt, dungeon)
         super().update(screen, events, keys, dt, dungeon, 0, 0)
@@ -192,5 +191,11 @@ class Player(Entity):
             self.required_exp = self.get_required_exp()
             self.exp = 0
             self.award_exp(prevexp-prev)
+
+    def givehealth(self, amount):
+        self.health += amount
+
+        if self.health > self.max_health:
+            self.health = self.max_health
             
 player = Player()

@@ -18,7 +18,7 @@ class Passive:
         self.image = pygame.transform.scale(pygame.image.load(os.path.join("assets", "textures", "abilities", "passives", icon_path + ".png")), (64, 64))
         self.previewimage = pygame.transform.scale(pygame.image.load(os.path.join("assets", "textures", "abilities", "passives", icon_path + ".png")), (224, 224))
 
-    def apply(self, multiplier):
+    def apply(self, multiplier, player):
         self.applied = True
 
     def update(self, screen, events, keys, dt, dungeon):

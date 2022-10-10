@@ -1,6 +1,8 @@
 import pygame
 from abilities.passives.Berserker import Berserker
+from abilities.passives.Haste import Haste
 from abilities.passives.LifeBonus import LifeBonus
+from abilities.passives.LifeSteal import LifeSteal
 from gui.Gui import Gui
 from Manager import Manager
 from init.ItemInit import ItemInit
@@ -19,11 +21,14 @@ class GuiGame(Gui):
 
         player.inventory.equipment.weapon = ItemInit.COPPER_SWORD
 
-        player.passives[0] = Berserker()
-        player.passives[1] = LifeBonus()
+        # player.passives[0] = Berserker()
+        # player.passives[1] = LifeBonus()
 
-        player.passiveInventory[0] = Berserker()
-        player.passiveInventory[1] = LifeBonus()
+        player.passives[0] = Haste()
+        player.passives[1] = Berserker()
+        player.passives[2] = LifeBonus()
+        player.passives[3] = LifeSteal()
+        player.passives[4] = Haste()
 
         player.inventory.load_stat_boosters(player)
 

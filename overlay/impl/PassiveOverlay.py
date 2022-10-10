@@ -1,3 +1,4 @@
+from copy import deepcopy
 import pygame
 from abilities.passives.Passive import Passive
 from overlay.Overlay import Overlay
@@ -92,7 +93,9 @@ class PassiveOverlay(Overlay):
 
         return propertiestexts
 
-    def update(self, screen, events, keys, dt, dungeon):        
+    def update(self, screen, events, keys, dt, dungeon): 
+        global player
+
         _x = 0
         _y = 0
 
@@ -133,7 +136,9 @@ class PassiveOverlay(Overlay):
                     if rect.collidepoint(self.lastclickpos[0], self.lastclickpos[1]):
                         self.lastclickpos = (-1000, -1000)
                         new = [*[selection]][0]
-                        self.awaitingselection_passive.apply(1)
+
+                        self.awaitingselection_passive.apply(1, player)
+
                         new.passive = self.awaitingselection_passive
                         setattr(self, f"passiveslot{i+1}", new)
                         player.passives[i] = self.awaitingselection_passive

@@ -1,3 +1,4 @@
+from copy import deepcopy
 from json import load
 import math
 import random
@@ -65,6 +66,13 @@ class Weapon(Equipment):
         for monster in monsters:
             monster.health -= damage
 
+        lifesteal = int(damage * player.lifesteal)
+
+        player.givehealth(lifesteal)
+
+        if player.health > player.max_health:
+            player.health = player.max_health
+
         return monsters
 
     def on_heavy_attack(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
@@ -79,6 +87,8 @@ class Weapon(Equipment):
         for monster in monsters:
             monster.health -= damage
 
+        player.givehealth(int(damage * player.lifesteal))
+
         return monsters
 
 
@@ -89,8 +99,7 @@ class Weapon(Equipment):
             if event.type == pygame.KEYDOWN:
                 if event.key == NORMAL_ATTACK:
                     if self.can_attack:
-                        cooldown = int(self.attack_speed*1000)
-                        print(player.attackspeedmultiplier)
+                        cooldown = int(self.attack_speed*1000/player.attackspeedmultiplier)
                         pygame.time.set_timer(Weapon.ATTACK_COOLDOWN, cooldown)
                         self.on_normal_attack(screen, events, keys, dt, dungeon, cameraX, cameraY)
                         self.can_attack = False

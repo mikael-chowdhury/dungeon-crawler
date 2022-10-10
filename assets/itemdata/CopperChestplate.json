@@ -1,11 +1,10 @@
 {
-    "name": "Copper Chestplate",
-    "type": "chestplate",
-    
-    "texture": "copper_chestplate",
-  
-    "player-buffs": {
-      "max_health": "+25"
-    }
+  "name": "Copper Chestplate",
+  "type": "chestplate",
+
+  "texture": "copper_chestplate",
+
+  "player-buffs": {
+    "max_health": "+25"
   }
-  
+}

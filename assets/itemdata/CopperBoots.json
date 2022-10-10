@@ -1,11 +1,10 @@
 {
-    "name": "Copper Boots",
-    "type": "boots",
-    
-    "texture": "copper_boots",
-  
-    "player-buffs": {
-      "max_health": "+10"
-    }
+  "name": "Copper Boots",
+  "type": "boots",
+
+  "texture": "copper_boots",
+
+  "player-buffs": {
+    "max_health": "+10"
   }
-  
+}

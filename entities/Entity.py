@@ -37,8 +37,11 @@ class Entity():
 
         self.follow_camera = False
 
-    def get_stat(self, stat):
-        return getattr(self, stat)
+    # def get_stat(self, stat):
+    #     return getattr(self, stat)
+
+    def fire_projectile(self, projectile):
+        
 
     def update_rect(self):
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)

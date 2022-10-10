@@ -1,11 +1,10 @@
 {
-    "name": "Copper Sword",
-    "type": "weapon",
-    
-    "texture": "copper_sword",
-  
-    "player-buffs": {
-      "physical_damage": "+10"
-    }
+  "name": "Copper Sword",
+  "type": "weapon",
+
+  "texture": "copper_sword",
+
+  "player-buffs": {
+    "physical_damage": "+10000"
   }
-  
+}
