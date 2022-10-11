@@ -1,3 +1,4 @@
+import time
 import pygame
 from inventory.EntityInventory import EntityInventory
 
@@ -37,11 +38,13 @@ class Entity():
 
         self.follow_camera = False
 
+        self.projectiles:list = []
+
     # def get_stat(self, stat):
     #     return getattr(self, stat)
 
     def fire_projectile(self, projectile):
-        
+        self.projectiles.append(projectile)
 
     def update_rect(self):
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
@@ -55,6 +58,11 @@ class Entity():
 
     def update(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
         self.inventory.update_inventory(screen, events, keys, dt, dungeon, cameraX, cameraY)
+
+        for projectile in self.projectiles:
+            projectile.update(screen, events, keys, dt, dungeon, cameraX, cameraY)
+
+        self.projectiles = [x for x in self.projectiles if not x.destroyed]
 
         if self.default_pathfinder is not None:
             x, y = self.default_pathfinder.get_new_position(self.x, self.y, dt)

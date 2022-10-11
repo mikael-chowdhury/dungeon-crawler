@@ -1,4 +1,5 @@
 import pygame
+from font.FontManager import FontManager
 from items.Item import Item
 from items.equipment.equipment import Equipment
 from overlay.Overlay import Overlay
@@ -11,7 +12,7 @@ from ui.items.InventoryItemToolTip import InventoryItemToolTip
 from ui.items.Slot import Slot
 from ui.items.ToolTip import ToolTip
 
-from ui.items.Rectangle import Rectangle
+from Manager import Manager
 
 class InventoryOverlay(Overlay):
     def __init__(self):
@@ -35,9 +36,9 @@ class InventoryOverlay(Overlay):
         self.selectedItem = player.inventory.items[0]
         self.selectedSlotPos = None
 
-        self.titlefont = pygame.font.SysFont("Arial", 32)
-        self.subtitlefont = pygame.font.SysFont("Arial", 24)
-        self.statfont = pygame.font.SysFont("Arial", 16)
+        self.titlefont = FontManager.VT323_42
+        self.subtitlefont = FontManager.VT323_32
+        self.statfont = FontManager.VT323_24
         
         self.selectedItemTitleText = self.getSelectedItemTitleText()
         self.selectedItemImage = self.getSelectedItemImage()

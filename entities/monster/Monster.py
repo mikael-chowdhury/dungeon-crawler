@@ -1,6 +1,7 @@
 from math import cos, degrees, sin, atan2, pi
 import pygame
 from entities.Entity import Entity
+from font.FontManager import FontManager
 from pathfinding.Pathfinder import Pathfinder
 
 from player import player
@@ -20,7 +21,7 @@ class Monster(Entity):
 
         self.default_pathfinder = Pathfinder(self.x, self.y, player, self.speed)
 
-        self.hp_font = pygame.font.SysFont("Arial", 28)
+        self.hp_font = FontManager.VT323_28
         
         self.rotation_padding = 0
 

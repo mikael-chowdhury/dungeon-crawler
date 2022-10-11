@@ -1,5 +1,6 @@
 import pygame
 from config import ANTIALIASING
+from font.FontManager import FontManager
 from ui.GuiItem import GuiItem
 
 class StatusBar(GuiItem):
@@ -13,7 +14,7 @@ class StatusBar(GuiItem):
         self.line_start = line_start
         self.line_end = line_end
 
-        self.font = pygame.font.SysFont("Arial", 24)
+        self.font = FontManager.VT323_24
 
     def update(self, screen, events, keys, dt, dungeon):
         percent = (self.status/self.total)

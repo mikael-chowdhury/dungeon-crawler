@@ -1,4 +1,3 @@
-from copy import deepcopy
 import pygame
 from abilities.passives.Passive import Passive
 from overlay.Overlay import Overlay
@@ -9,6 +8,8 @@ from ui.items.PassiveMenuEquippedToolTip import PassiveMenuEquippedToolTip
 from ui.items.PassiveMenuInventoryToolTip import PassiveMenuInventoryToolTip
 from ui.items.SlotPassive import SlotPassive
 from ui.items.ToolTip import ToolTip
+
+from font.FontManager import FontManager
 
 import config
 
@@ -31,9 +32,9 @@ class PassiveOverlay(Overlay):
         self.selectedItem = player.passiveInventory[0]
         self.selectedSlotPos = None
 
-        self.titlefont = pygame.font.SysFont("Arial", 32)
-        self.subtitlefont = pygame.font.SysFont("Arial", 24)
-        self.statfont = pygame.font.SysFont("Arial", 16)
+        self.titlefont = FontManager.VT323_32
+        self.subtitlefont = FontManager.VT323_24
+        self.statfont = FontManager.VT323_16
         
         self.selectedItemTitleText = self.getSelectedItemTitleText()
         self.selectedItemImage = self.getSelectedItemImage()

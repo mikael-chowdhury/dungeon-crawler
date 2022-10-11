@@ -4,10 +4,14 @@ import json
 import pygame
 from config import ANTIALIASING
 from entities.Entity import Entity
+from font.FontManager import FontManager
+from gui.GuiManager import GuiManager
 from inventory.PlayerInventory import PlayerInventory
 from ui.items.StatusBar import StatusBar
 from util.ResourceLocation import ResourceLocation
 from math import atan2, pi, degrees
+
+from gui.impl.GuiGameOver import GuiGameOver
 
 import config
 
@@ -52,6 +56,14 @@ class Player(Entity):
 
         self.lifesteal = 0
 
+        self.is_dead = False
+
+    def recieve_damage(self, amount):
+        self.health -= amount
+        
+        if self.health <= 0:
+            self.is_dead = True
+
     def movement(self, keys, dt, dungeon):
         up = keys[pygame.K_w] or keys[pygame.K_UP]
         down = keys[pygame.K_s] or keys[pygame.K_DOWN]
@@ -91,7 +103,7 @@ class Player(Entity):
 
     def draw_player_level(self, screen):
         if self.first_load:
-            self.level_font = pygame.font.SysFont("Arial", 36)
+            self.level_font = FontManager.VT323_36
             self.level_text = self.level_font.render(str(self.level), ANTIALIASING, (214, 209, 45))
         else:
             screen.blit(self.exp_star, (5, 10))
@@ -111,11 +123,12 @@ class Player(Entity):
 
     def draw_time_ending_text(self, screen):
         if self.first_load:
-            self.time_ending_font = pygame.font.SysFont("Arial", 90)
+            self.time_ending_font = FontManager.VT323_64
             self.time_ending_text = self.time_ending_font.render(str(self.time_until_end), ANTIALIASING, (255, 0, 0))
         else:
             if self.time_ending:
-                screen.blit(self.time_ending_text, (self.x+self.width/2, self.y))
+                rect = self.time_ending_text.get_rect(center=(40, 100))
+                screen.blit(self.time_ending_text, rect)
 
     def get_angle(self, origin, destination):
         x_dist = destination[0] - origin[0]
@@ -131,6 +144,11 @@ class Player(Entity):
         return rot_image
 
     def update(self, screen, events, keys, dt, dungeon):
+        if self.is_dead:
+           from Manager import Manager
+           guimanager:GuiManager = Manager.get_manager("GuiManager")
+           guimanager.current_gui = GuiGameOver()
+            
         angle = self.get_angle((self.rect.center), pygame.mouse.get_pos())
         self.image = self.rot_center(self.original_image, degrees(angle)+self.rotation_padding).convert_alpha()
         
