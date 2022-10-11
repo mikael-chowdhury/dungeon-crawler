@@ -1,7 +1,7 @@
 import os
 import pygame
 
-from items.equipment.Rarities import Rarity
+from rarity.Rarities import Rarity
 
 class Passive:
     def __init__(self, name, icon_path, rarity:Rarity, modifications:list[str]):

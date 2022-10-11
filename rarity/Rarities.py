@@ -1,5 +1,7 @@
 import random
 
+from rarity.RaritySpread import RaritySpread
+
 class Rarity():
     def __init__(self, name, colour, multiplier) -> None:
         self.name = name
@@ -14,14 +16,14 @@ class Rarities:
     LEGENDARY = Rarity("LEGENDARY", (208, 132, 0), 2.5)
     MYTHICAL = Rarity("MYTHICAL", (128, 0, 255), 5)
 
-    RARITIES = [(JUNK, 50), (UNCOMMON, 20), (RARE, 15), (EPIC, 10), (LEGENDARY, 4), (MYTHICAL, 1)]
+    RARITIES = [JUNK, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHICAL]
 
     @staticmethod
-    def get_random_rarity()->Rarity:
+    def get_random_rarity(spread=RaritySpread.DEFAULT)->Rarity:
         _list = []
 
-        for rarity in Rarities.RARITIES:
-            for _ in range(rarity[1]):
-                _list.append(rarity[0])
+        for index, rarity in enumerate(Rarities.RARITIES):
+            for _ in range(spread[index]):
+                _list.append(rarity)
 
         return random.choice(_list)

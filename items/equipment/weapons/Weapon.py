@@ -2,7 +2,7 @@ from copy import deepcopy
 from json import load
 import math
 import random
-from items.equipment.Rarities import Rarities
+from rarity.Rarities import Rarities
 
 from items.equipment.equipment import Equipment
 from util.ResourceLocation import ResourceLocation

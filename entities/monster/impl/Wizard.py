@@ -26,7 +26,6 @@ class Wizard(Monster):
         self.update_pathfinder()
 
     def fire_cannonball(self):
-        print("fired cannonball")
         self.fire_projectile(Cannonball(self.x, self.y, (player.rect.centerx-self.x+player.cameraX, player.rect.centery-self.y+player.cameraY)))
 
     def update(self, screen, events, keys, dt, dungeon, cameraX, cameraY):

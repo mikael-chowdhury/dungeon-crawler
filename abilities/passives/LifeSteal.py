@@ -1,5 +1,5 @@
 from abilities.passives.Passive import Passive
-from items.equipment.Rarities import Rarities
+from rarity.Rarities import Rarities
 
 class LifeSteal(Passive):
     def __init__(self):

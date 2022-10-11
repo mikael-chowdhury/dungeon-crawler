@@ -1,6 +1,6 @@
 from math import ceil
 from abilities.passives.Passive import Passive
-from items.equipment.Rarities import Rarities
+from rarity.Rarities import Rarities
 
 class LifeBonus(Passive):
     def __init__(self):

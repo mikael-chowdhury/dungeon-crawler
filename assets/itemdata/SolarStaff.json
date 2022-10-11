@@ -1,0 +1,10 @@
+{
+  "name": "Solar Staff",
+  "type": "weapon",
+
+  "texture": "solar_staff",
+
+  "modifiers": {
+    "attack_range": "*0"
+  }
+}

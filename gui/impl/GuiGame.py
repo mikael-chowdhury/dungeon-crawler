@@ -19,7 +19,7 @@ class GuiGame(Gui):
         player.inventory.equipment.chestplate = ItemInit.COPPER_CHESTPLATE
         player.inventory.equipment.boots = ItemInit.COPPER_BOOTS
 
-        player.inventory.equipment.weapon = ItemInit.COPPER_SWORD
+        player.inventory.equipment.weapon = ItemInit.SOLAR_STAFF
 
         # player.passives[0] = Berserker()
         # player.passives[1] = LifeBonus()

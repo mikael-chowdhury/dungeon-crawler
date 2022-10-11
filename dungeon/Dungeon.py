@@ -1,8 +1,10 @@
 from copy import deepcopy
 import pygame
 from Manager import Manager
+from abilities.passives.Passive import Passive
 from entities.monster.MonsterManager import MonsterManager
 from gui.impl.GuiMainMenu import GuiMainMenu
+from items.Item import Item
 from player import player
 
 class Dungeon:
@@ -75,6 +77,16 @@ class Dungeon:
                     if not no_draw:
                         monster.update(screen, events, keys, dt, self, player.cameraX, player.cameraY)
             else:
+                reward = monster.loottable.get_random_item()
+
+                print(reward)
+
+                if reward is not None:
+                    if isinstance(reward, Passive):
+                        player.give_passive(reward)
+                    elif isinstance(reward, Item):
+                        player.inventory.give_item(reward)
+
                 del self.monsters[monster_number]
                 player.award_exp(monster.max_health / 10 + max(monster.physical_damage, monster.magical_damage))
 

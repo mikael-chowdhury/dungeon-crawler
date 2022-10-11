@@ -5,7 +5,7 @@ import uuid
 
 import pygame
 
-from items.equipment.Rarities import Rarities
+from rarity.Rarities import Rarities
 
 
 class Item:

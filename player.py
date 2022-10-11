@@ -215,5 +215,11 @@ class Player(Entity):
 
         if self.health > self.max_health:
             self.health = self.max_health
+
+    def give_passive(self, passive):
+        for index, p in enumerate(self.passiveInventory):
+            if p is None:
+                self.passiveInventory[index] = passive
+                break
             
 player = Player()

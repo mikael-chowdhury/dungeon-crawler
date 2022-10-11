@@ -2,6 +2,7 @@ from math import cos, degrees, sin, atan2, pi
 import pygame
 from entities.Entity import Entity
 from font.FontManager import FontManager
+from loot.LootTable import LootTable
 from pathfinding.Pathfinder import Pathfinder
 
 from player import player
@@ -24,6 +25,8 @@ class Monster(Entity):
         self.hp_font = FontManager.VT323_28
         
         self.rotation_padding = 0
+
+        self.loottable = LootTable()
 
     def update_image(self):
         if self.image is not None:
