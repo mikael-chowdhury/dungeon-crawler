@@ -13,5 +13,5 @@ class FallenCastle(Dungeon):
 
         self.floor = pygame.transform.smoothscale(pygame.image.load(ResourceLocation("assets/tiles/castle_floor.jpg")), (self.tile_size, self.tile_size)).convert_alpha()
 
-        self.monster_supply.add_multiple(Knight, 3)
-        self.monster_supply.add_multiple(Wizard, 2)
+        # self.monster_supply.add_multiple(Knight, 3)
+        self.monster_supply.add_multiple(Wizard, 1)

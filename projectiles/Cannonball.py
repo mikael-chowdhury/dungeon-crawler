@@ -1,4 +1,5 @@
 import math
+from animation.Animation import Animation
 from projectiles.Projectile import Projectile
 
 class Cannonball(Projectile):
@@ -17,7 +18,13 @@ class Cannonball(Projectile):
 
         angle = math.degrees(math.atan2(-self.direction[1], self.direction[0]))
 
+        self.collisionanimation = Animation("CannonballExplosion", 300, 300)
+        self.collisionanimation.fps = 10
+
         self.rotation = angle
+
+    def oncollide(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
+        super().oncollide(screen, events, keys, dt, dungeon, cameraX, cameraY)
 
     def update(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
         self.x += self.direction[0]*self.speed*dt

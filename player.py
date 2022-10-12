@@ -21,6 +21,8 @@ class Player(Entity):
 
         self.DEFAULT_STATS = json.load(open(ResourceLocation("assets/playerdata/default-stats.json")))
 
+        self.health = self.DEFAULT_STATS["max_health"]
+
         self.cameraX = 0
         self.cameraY = 0
 

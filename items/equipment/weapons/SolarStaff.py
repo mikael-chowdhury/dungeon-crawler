@@ -8,4 +8,4 @@ class SolarStaff(Weapon):
     def update(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                circle = 
+                circle = pygame.Rect(0, 0, 0, 0)
