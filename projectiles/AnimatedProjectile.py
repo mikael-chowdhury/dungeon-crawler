@@ -15,14 +15,23 @@ class AnimatedProjectile(Projectile):
         self.sprite.image = self.image
         self.sprite.mask = self.mask
 
+        self.frames = self.animation.loadedframes
+
+    def oncollide(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
+        super().oncollide(screen, events, keys, dt, dungeon, cameraX, cameraY)
+
     def update(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
-        if pygame.time.get_ticks() - self.animation.elapsed > self.animation.ms:
-            self.animation.elapsed = pygame.time.get_ticks()
-            self.animation.inc()
-        
-        if self.animation.current_frame > -1:
-            self.image = self.animation.loadedframes[self.animation.current_frame]
-        else:
-            self.animation.current_frame += 1
+        if self.rotation != self.last_rotation:
+            self.frames = [pygame.transform.rotate(x, self.rotation) for x in self.animation.loadedframes]
+
+        if not self.playing_collision_animation:
+            if pygame.time.get_ticks() - self.animation.elapsed > self.animation.ms:
+                self.animation.elapsed = pygame.time.get_ticks()
+                self.animation.inc()
+            
+            if self.animation.current_frame > -1:
+                self.image = self.frames[self.animation.current_frame]
+            else:
+                self.animation.current_frame += 1
 
         super().update(screen, events, keys, dt, dungeon, cameraX, cameraY)

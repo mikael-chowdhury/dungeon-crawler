@@ -47,7 +47,7 @@ class Animation():
             if animation.current_frame == -1:
                 animation.current_frame = 0
 
-            if pygame.time.get_ticks() - animation.elapsed > animation.ms:
+            if pygame.time.get_ticks() - animation.elapsed > 1000/animation.fps:
                 animation.elapsed = pygame.time.get_ticks()
                 animation.inc()
 

@@ -46,11 +46,16 @@ class Projectile():
 
     def update(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
         if self.rotation != self.last_rotation:
-            self.rot_center(self.image, self.rotation)
+            self.last_rotation = self.rotation
+            self.image = self.rot_center(self.image, self.rotation)
 
         rect = self.image.get_rect(center=(self.x-cameraX, self.y-cameraY))
         self.sprite.rect = rect
-        screen.blit(self.image, rect)
+        self.sprite.image = self.image
+        self.sprite.mask = pygame.mask.from_surface(self.image)
+
+        if not self.playing_collision_animation:
+            screen.blit(self.image, rect)
         
         if self.harms_player and not self.playing_collision_animation:
             prect = pygame.Rect(player.x, player.y, player.width, player.height)
@@ -85,9 +90,8 @@ class Projectile():
     def rot_center(self, image, angle):
         orig_rect = image.get_rect()
         rot_image = pygame.transform.rotate(image, angle)
-        rot_rect = orig_rect.copy()
-        rot_rect.center = rot_image.get_rect().center
-        rot_image = rot_image.subsurface(rot_rect).copy()
+        rot_rect = rot_image.get_rect(center=orig_rect.center)
+
         return rot_image
 
     def oncollide(self, screen, events, keys, dt, dungeon, cameraX, cameraY):

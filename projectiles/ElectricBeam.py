@@ -6,10 +6,11 @@ class ElectricBeam(AnimatedProjectile):
     def __init__(self, x, y, direction, size=100):
         super().__init__(x, y, size, size, Animation("ElectricBeam", 250, 75))
 
-        self.animation
+        self.animation.fps = 10
+
         self.direction = direction
         
-        self.speed = 0.25
+        self.speed = 0.75
 
         length = math.hypot(*self.direction)
         if length == 0.0:
@@ -19,8 +20,9 @@ class ElectricBeam(AnimatedProjectile):
 
         angle = math.degrees(math.atan2(-self.direction[1], self.direction[0]))
 
-        self.collisionanimation = Animation("ElectricBall", 300)
+        self.collisionanimation = Animation("ElectricBall", 300, 300)
         self.collisionanimation.fps = 10
+        self.collisionanimation.ms = 1000/self.collisionanimation.fps
 
         self.rotation = angle
 

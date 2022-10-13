@@ -1,7 +1,9 @@
+import random
 from entities.monster.Monster import Monster
 from util.ResourceLocation import ResourceLocation
 
 from projectiles.ElectricBeam import ElectricBeam
+from projectiles.Cannonball import Cannonball
 
 from player import player
 
@@ -26,7 +28,8 @@ class Wizard(Monster):
         self.update_pathfinder()
 
     def fire_cannonball(self):
-        self.fire_projectile(ElectricBeam(self.x, self.y, (player.rect.centerx-self.x+player.cameraX, player.rect.centery-self.y+player.cameraY)))
+        proj = random.choice([ElectricBeam, Cannonball])
+        self.fire_projectile(proj(self.rect.centerx, self.rect.centery, (player.rect.centerx-self.x+player.cameraX, player.rect.centery-self.y+player.cameraY)))
 
     def update(self, screen, events, keys, dt, dungeon, cameraX, cameraY):
         self.tick += 1
