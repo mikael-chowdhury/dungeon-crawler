@@ -86,6 +86,7 @@ class Projectile():
             if self.collisionanimation.current_frame == -1:
                 self.collisionanimation = None
                 self.playing_collision_animation = False
+                self.destroyed = True
 
     def rot_center(self, image, angle):
         orig_rect = image.get_rect()

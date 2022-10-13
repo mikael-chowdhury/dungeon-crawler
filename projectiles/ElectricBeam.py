@@ -10,7 +10,7 @@ class ElectricBeam(AnimatedProjectile):
 
         self.direction = direction
         
-        self.speed = 0.75
+        self.speed = 0.5
 
         length = math.hypot(*self.direction)
         if length == 0.0:

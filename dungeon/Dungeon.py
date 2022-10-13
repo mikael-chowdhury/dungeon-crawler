@@ -79,8 +79,6 @@ class Dungeon:
             else:
                 reward = monster.loottable.get_random_item()
 
-                print(reward)
-
                 if reward is not None:
                     if isinstance(reward, Passive):
                         player.give_passive(reward)

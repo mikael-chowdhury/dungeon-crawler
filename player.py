@@ -117,6 +117,7 @@ class Player(Entity):
 
     def draw_status_bars(self, screen, events, keys, dt, dungeon):
         self.health_bar.update(screen, events, keys, dt, dungeon)
+        self.mana_bar.update(screen, events, keys, dt, dungeon)
         self.xp_bar.update(screen, events, keys, dt, dungeon)
 
     def update_time_ending_text(self):
@@ -146,6 +147,11 @@ class Player(Entity):
         return rot_image
 
     def update(self, screen, events, keys, dt, dungeon):
+        for event in events:
+            if event.type == pygame.USEREVENT + 5:
+                if player.mana < player.max_mana:
+                    player.mana += player.mana_gain_speed
+
         if self.is_dead:
            from Manager import Manager
            guimanager:GuiManager = Manager.get_manager("GuiManager")
@@ -155,13 +161,19 @@ class Player(Entity):
         self.image = self.rot_center(self.original_image, degrees(angle)+self.rotation_padding).convert_alpha()
         
         if self.first_load:
+            pygame.time.set_timer(pygame.USEREVENT + 5, 1000)
+
             self.exp_star = pygame.image.load(ResourceLocation("assets/ui/star.png")).convert_alpha()
 
-            self.health_bar = StatusBar(None, 22, 728, 130, 20, background_image=pygame.image.load(ResourceLocation("assets/ui/health_bar.png")).convert_alpha(), status=self.health, total=self.max_health, line_start=25, line_end=95, bar_colour=(255, 0, 0))
+            self.health_bar = StatusBar(None, 22, 706, 130, 20, background_image=pygame.image.load(ResourceLocation("assets/ui/health_bar.png")).convert_alpha(), status=self.health, total=self.max_health, line_start=25, line_end=95, bar_colour=(255, 0, 0))
+            self.mana_bar = StatusBar(None, 25, 728, 126, 26, background_image=pygame.image.load(ResourceLocation("assets/ui/mana_bar.png")).convert_alpha(), status=self.mana, total=self.max_mana, line_start=22, line_end=90, bar_colour=(0, 97, 255))
             self.xp_bar = StatusBar(None, 25, 750, 126, 26, background_image=pygame.image.load(ResourceLocation("assets/ui/xp_bar.png")).convert_alpha(), status=self.exp, total=self.required_exp, line_start=25, line_end=95, bar_colour=(0, 255, 255))
 
         self.health_bar.status = self.health
         self.health_bar.total = self.max_health
+
+        self.mana_bar.status = self.mana
+        self.mana_bar.total = self.max_mana
 
         self.xp_bar.status = self.exp
         self.xp_bar.total = self.required_exp

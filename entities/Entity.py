@@ -12,6 +12,7 @@ class Entity():
 
         self.mana = 100
         self.max_mana = 100
+        self.mana_gain_speed = 2
 
         self.critical_chance = 15
         self.critical_multiplier = 2
